@@ -1,6 +1,6 @@
 import { StatelessDropdownMenu } from '@atlaskit/dropdown-menu';
 import AKFieldText, { FieldText } from '@atlaskit/field-text';
-import ExpandIcon from '@atlaskit/icon/glyph/expand';
+import ChevronDownIcon from '@atlaskit/icon/glyph/chevron-down';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
@@ -215,7 +215,7 @@ class DialOutNumbersForm extends Component {
                     type = 'text'
                     value = { dialCode || '' } />
                 <span className = 'dropdown-trigger-icon'>
-                    <ExpandIcon
+                    <ChevronDownIcon
                         label = 'expand'
                         size = 'medium' />
                 </span>

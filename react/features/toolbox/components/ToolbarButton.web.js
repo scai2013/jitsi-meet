@@ -1,7 +1,7 @@
 /* @flow */
 
 import AKInlineDialog from '@atlaskit/inline-dialog';
-import { Tooltip } from '@atlaskit/tooltip';
+import Tooltip from '@atlaskit/tooltip';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 
@@ -134,10 +134,10 @@ class ToolbarButton extends Component {
         const buttonComponent = ( // eslint-disable-line no-extra-parens
             <Tooltip
                 description = { button.tooltipText || t(button.tooltipKey) }
+                isVisible = { this.state.showTooltip }
                 onMouseOut = { this._onMouseOut }
                 onMouseOver = { this._onMouseOver }
-                position = { tooltipPosition }
-                visible = { this.state.showTooltip }>
+                position = { tooltipPosition }>
                 <StatelessToolbarButton { ...props }>
                     { this.props.children }
                 </StatelessToolbarButton>

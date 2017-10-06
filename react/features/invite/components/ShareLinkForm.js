@@ -86,7 +86,6 @@ class ShareLinkForm extends Component {
                     <Button
                         appearance = 'default'
                         onClick = { this._onClick }
-                        shouldFitContainer = { true }
                         type = 'button'>
                         { t('dialog.copy') }
                     </Button>
