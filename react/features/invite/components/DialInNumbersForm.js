@@ -1,6 +1,6 @@
 import Button from '@atlaskit/button';
-import { StatelessDropdownMenu } from '@atlaskit/dropdown-menu';
-import { FieldText } from '@atlaskit/field-text';
+import { DropdownMenuStateless as DropdownMenu } from '@atlaskit/dropdown-menu';
+import { FieldTextStateless as TextField } from '@atlaskit/field-text';
 import ChevronDownIcon from '@atlaskit/icon/glyph/chevron-down';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
@@ -178,7 +178,7 @@ class DialInNumbersForm extends Component {
     }
 
     /**
-     * Creates a {@code StatelessDropdownMenu} instance.
+     * Creates a {@code DropdownMenu} instance.
      *
      * @param {Array} items - The content to display within the dropdown.
      * @param {string} triggerText - The text to display within the
@@ -187,14 +187,14 @@ class DialInNumbersForm extends Component {
      */
     _createDropdownMenu(items, triggerText) {
         return (
-            <StatelessDropdownMenu
+            <DropdownMenu
                 isOpen = { this.state.isDropdownOpen }
                 items = { [ { items } ] }
                 onItemActivated = { this._onSelect }
                 onOpenChange = { this._onOpenChange }
                 shouldFitContainer = { true }>
                 { this._createDropdownTrigger(triggerText) }
-            </StatelessDropdownMenu>
+            </DropdownMenu>
         );
     }
 
@@ -211,7 +211,7 @@ class DialInNumbersForm extends Component {
         return (
             <div className = 'dial-in-numbers-trigger'>
                 <div className = 'form-control__input-container'>
-                    <FieldText
+                    <TextField
                         compact = { true }
                         isLabelHidden = { true }
                         isReadOnly = { true }
@@ -235,7 +235,7 @@ class DialInNumbersForm extends Component {
      * Detects whether the response from dialInNumbersUrl returned an array or
      * an object with dial-in numbers and calls the appropriate method to
      * transform the numbers into the format expected by
-     * {@code StatelessDropdownMenu}.
+     * {@code DropdownMenu}.
      *
      * @param {Array<string>|Object} dialInNumbers - The numbers returned from
      * requesting dialInNumbersUrl.
@@ -252,7 +252,7 @@ class DialInNumbersForm extends Component {
 
     /**
      * Transforms the passed in numbers array into an array of objects that can
-     * be parsed by {@code StatelessDropdownMenu}.
+     * be parsed by {@code DropdownMenu}.
      *
      * @param {Array<string>} dialInNumbers - An array with dial-in numbers to
      * display and copy.
@@ -270,7 +270,7 @@ class DialInNumbersForm extends Component {
 
     /**
      * Transforms the passed in numbers object into an array of objects that can
-     * be parsed by {@code StatelessDropdownMenu}.
+     * be parsed by {@code DropdownMenu}.
      *
      * @param {Object} dialInNumbers - The numbers object to parse. The
      * expected format is an object with keys being the name of the country
@@ -344,8 +344,8 @@ class DialInNumbersForm extends Component {
     }
 
     /**
-     * This is a no-op function used to stub out FieldText's onChange in order
-     * to prevent FieldText from printing prop type validation errors. FieldText
+     * This is a no-op function used to stub out TextField's onChange in order
+     * to prevent TextField from printing prop type validation errors. TextField
      * is used as a trigger for the dropdown in {@code DialInNumbersForm} to
      * get the desired AtlasKit input look for the UI.
      *
