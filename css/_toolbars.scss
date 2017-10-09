@@ -36,7 +36,6 @@
  * Common toolbar styles.
  */
 .toolbar {
-    color: $modalTextColor;
     height: 100%;
     pointer-events: auto;
     position: relative;
@@ -92,6 +91,7 @@
         }
 
         &:hover, &:active {
+            color: $toolbarButtonColor;
             cursor: pointer;
             text-decoration: none;
         }
