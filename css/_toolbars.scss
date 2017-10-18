@@ -81,11 +81,6 @@
         vertical-align: middle;
         width: $defaultToolbarSize;
 
-        &_hangup {
-            color: $hangupColor;
-            font-size: $hangupFontSize;
-        }
-
         &[disabled] {
             opacity: 0.5;
         }
@@ -94,6 +89,11 @@
             color: $toolbarButtonColor;
             cursor: pointer;
             text-decoration: none;
+        }
+
+        &_hangup, &_hangup:hover {
+            color: $hangupColor;
+            font-size: $hangupFontSize;
         }
 
         &:not(.toggled) {

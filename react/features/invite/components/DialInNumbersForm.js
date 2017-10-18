@@ -162,7 +162,6 @@ class DialInNumbersForm extends Component {
                     <Button
                         appearance = 'default'
                         onClick = { this._onCopyClick }
-                        shouldFitContainer = { true }
                         type = 'button'>
                         { t('dialog.copy') }
                     </Button>
