@@ -72,7 +72,6 @@ class ShareLinkForm extends Component {
                 <div className = 'form-control__container'>
                     <div className = 'form-control__input-container'>
                         <TextField
-                            compact = { true }
                             id = 'inviteLinkRef'
                             isLabelHidden = { true }
                             isReadOnly = { true }

@@ -1,7 +1,6 @@
 import Button from '@atlaskit/button';
-import { DropdownMenuStateless as DropdownMenu } from '@atlaskit/dropdown-menu';
-import { FieldTextStateless as TextField } from '@atlaskit/field-text';
-import ChevronDownIcon from '@atlaskit/icon/glyph/chevron-down';
+import DropdownMenu, {
+    DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
@@ -158,7 +157,9 @@ class DialInNumbersForm extends Component {
                     </span>
                 </label>
                 <div className = 'form-control__container'>
-                    { this._createDropdownMenu(items, selectedNumber.content) }
+                    <div className = 'form-control__input-container'>
+                        { this._createDropdownMenu(items, selectedNumber) }
+                    </div>
                     <Button
                         appearance = 'default'
                         onClick = { this._onCopyClick }
@@ -188,45 +189,15 @@ class DialInNumbersForm extends Component {
         return (
             <DropdownMenu
                 isOpen = { this.state.isDropdownOpen }
-                items = { [ { items } ] }
-                onItemActivated = { this._onSelect }
                 onOpenChange = { this._onOpenChange }
-                shouldFitContainer = { true }>
-                { this._createDropdownTrigger(triggerText) }
+                shouldFitContainer = { true }
+                trigger = { triggerText || '' }
+                triggerButtonProps = {{ shouldFitContainer: true }}
+                triggerType = 'button'>
+                <DropdownItemGroup>
+                    { items }
+                </DropdownItemGroup>
             </DropdownMenu>
-        );
-    }
-
-    /**
-     * Creates a React {@code Component} with a readonly HTMLInputElement as a
-     * trigger for displaying the dropdown menu. The {@code Component} will also
-     * display the currently selected number.
-     *
-     * @param {string} triggerText - Text to display in the HTMLInputElement.
-     * @private
-     * @returns {ReactElement}
-     */
-    _createDropdownTrigger(triggerText) {
-        return (
-            <div className = 'dial-in-numbers-trigger'>
-                <div className = 'form-control__input-container'>
-                    <TextField
-                        compact = { true }
-                        isLabelHidden = { true }
-                        isReadOnly = { true }
-                        label = 'Select Dial-In Number'
-                        onChange = { this._onDropdownTriggerInputChange }
-                        ref = { this._setInput }
-                        shouldFitContainer = { true }
-                        type = 'text'
-                        value = { triggerText || '' } />
-                </div>
-                <span className = 'dial-in-numbers-trigger-icon'>
-                    <ChevronDownIcon
-                        label = 'expand'
-                        size = 'medium' />
-                </span>
-            </div>
         );
     }
 
@@ -259,12 +230,9 @@ class DialInNumbersForm extends Component {
      * @returns {Array<Object>}
      */
     _formatNumbersArray(dialInNumbers) {
-        return dialInNumbers.map(number => {
-            return {
-                content: number,
-                number
-            };
-        });
+        return dialInNumbers.map(number =>
+            this._renderDropDownItem(number)
+        );
     }
 
     /**
@@ -287,12 +255,9 @@ class DialInNumbersForm extends Component {
         const formattedNumbers = phoneRegions.map(region => {
             const numbers = dialInNumbers[region];
 
-            return numbers.map(number => {
-                return {
-                    content: `${region}: ${number}`,
-                    number
-                };
-            });
+            return numbers.map(number =>
+                this._renderDropDownItem(number, `${region}: ${number}`)
+            );
         });
 
         return Array.prototype.concat(...formattedNumbers);
@@ -312,7 +277,7 @@ class DialInNumbersForm extends Component {
         });
 
         const callNumber = t('invite.callNumber', {
-            number: this.state.selectedNumber.number
+            number: this.state.selectedNumber
         });
         const stepOne = `1) ${callNumber}`;
 
@@ -379,8 +344,33 @@ class DialInNumbersForm extends Component {
     _onSelect(selection) {
         this.setState({
             isDropdownOpen: false,
-            selectedNumber: selection.item
+            selectedNumber: selection
         });
+    }
+
+    /**
+     * Renders a DropDownItem for the given id and text.
+     *
+     * @param {string} id - The key identifier of the DropdownItem.
+     * @param {string} text - The text to display in the dropdown item.
+     * @returns {React.Component}
+     * @private
+     */
+    _renderDropDownItem(id, text) {
+        return (
+
+            /**
+             * Arrow functions are not allowed in props, but I leave this until
+             * I figure a better way to implement the same thing.
+             */
+            /* eslint-disable */
+            <DropdownItem
+                key = { id }
+                onClick = { () => this._onSelect(text || id) }>
+                { text }
+            </DropdownItem>
+            /* eslint-disable */
+        );
     }
 
     /**
@@ -408,7 +398,7 @@ class DialInNumbersForm extends Component {
         const numbers = this._formatNumbers(dialInNumbers);
 
         this.setState({
-            selectedNumber: numbers[0]
+            selectedNumber: numbers[0].props.children
         });
     }
 }

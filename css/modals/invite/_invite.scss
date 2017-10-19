@@ -63,6 +63,14 @@
             flex: 1;
             margin-right: 10px;
         }
+
+        /**
+         * Overwrite all AtlasKit styles in order to align the button text
+         * to the left.
+         */
+        .efkQxJ, .liMDSM, .sFXRd, .jKlmrw, .jSKXCE, .ctDuVH {
+            text-align: left;
+        }
     }
 
     .inviteLink {
