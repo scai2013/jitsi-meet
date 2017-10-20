@@ -26,6 +26,13 @@
             width: 30%;
         }
     }
+
+    &-spinner {
+        top: 50%;
+        margin: -15px;
+        left: 50%;
+        position: relative;
+    }
 }
 
 .desktop-picker-source {
