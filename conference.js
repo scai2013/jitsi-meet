@@ -1416,7 +1416,11 @@ export default {
     _turnScreenSharingOff(didHaveVideo, wasVideoMuted) {
         this._untoggleScreenSharing = null;
         this.videoSwitchInProgress = true;
-        APP.remoteControl.receiver.stop();
+        const { receiver } = APP.remoteControl;
+
+        if (receiver) {
+            APP.remoteControl.receiver.stop();
+        }
         let promise = null;
 
         if (didHaveVideo) {
